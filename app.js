@@ -68,9 +68,9 @@ function abrirModal(libro) {
 
   fetch('bookdes.json')
     .then(r => r.json())
-  .then(data => {
-    libros = data.libros || data;
-    renderizar(libros);
+  .then(dat => {
+    libro = dat.libro || dat;
+    renderizar(libro);
 
    document.getElementById("modalTitulo").innerText = libro.titulo;
   document.getElementById("modalDescripcion").innerText = libro.descripcion;
@@ -86,6 +86,7 @@ function abrirModal(libro) {
 
   document.getElementById("modal").style.display = "flex";
 }
+
 
 
 
