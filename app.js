@@ -8,15 +8,15 @@ function normalizarTexto(texto = "") {
 
 let libros = [];
 
-// Renderiza las tarjetas en pantalla (usa books.json)
+// Renderiza las tarjetas en pantalla
 function renderizar(librosFiltrados) {
   const cont = document.getElementById('resultados');
   if (!librosFiltrados.length) {
     cont.innerHTML = '<p>No se encontraron libros.</p>';
     return;
   }
-  cont.innerHTML = librosFiltrados.map((b) => `
-    <article class="card" data-id="${b.id}">
+  cont.innerHTML = librosFiltrados.map((b, i) => `
+    <article class="card" data-id="${i}">
       <img src="${b.portada}" alt="Portada ${b.titulo}" onerror="this.style.display='none'">
       <div class="meta">
         <h3>${b.titulo}</h3>
@@ -26,16 +26,16 @@ function renderizar(librosFiltrados) {
     </article>
   `).join('');
 
-  // Evento click para abrir modal
+  // ➕ Evento click para abrir modal
   document.querySelectorAll(".card").forEach(card => {
     card.addEventListener("click", () => {
-      const id = parseInt(card.dataset.id);
-      abrirModal(id);
+      const id = card.dataset.id;
+      abrirModal(libros[id]); // 🔥 ahora abre modal en lugar de detalle.html
     });
   });
 }
 
-// Busca por título, categoría o descripción (books.json)
+// Busca por título, categoría o descripción
 function buscar(q) {
   const qn = normalizarTexto(q);
   if (!qn) return libros;
@@ -46,8 +46,8 @@ function buscar(q) {
   );
 }
 
-// Carga inicial de datos desde books.json 🚀
-fetch('books.json')
+// Carga inicial de datos desde bookdes.json 🚀
+fetch('bookdes.json')
   .then(r => r.json())
   .then(data => {
     libros = data.libros || data;
@@ -63,16 +63,10 @@ document.getElementById('buscar').addEventListener('input', (e) => {
   renderizar(buscar(e.target.value));
 });
 
-// Abre modal con datos desde bookdes.json
+// Ejemplo de función para abrir modal
+// Ejemplo de función para abrir modal
 function abrirModal(libro) {
-
-  fetch('bookdes.json')
-    .then(r => r.json())
-  .then(dat => {
-    libro = dat.libro || dat;
-    renderizar(libro);
-
-   document.getElementById("modalTitulo").innerText = libro.titulo;
+  document.getElementById("modalTitulo").innerText = libro.titulo;
   document.getElementById("modalDescripcion").innerText = libro.descripcion;
   document.getElementById("modalCategoria").innerText = libro.categoria;
 
@@ -86,8 +80,4 @@ function abrirModal(libro) {
 
   document.getElementById("modal").style.display = "flex";
 }
-
-
-
-
 
