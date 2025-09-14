@@ -1,0 +1,30 @@
+
+[
+  {
+    "titulo": "Cuentos y relatos Escogidos",
+    "categoria": "Literatura",
+    "ano": "2000",
+    "descripcion": "Selección de cuentos clásicos para secundaria, lo mejor en historias.",
+    "portada": "cuentos-y-relatos.jpg"
+  },
+  {
+    "titulo": "Matemática 9 libro para todos",
+    "categoria": "Matemáticas",
+    "descripcion": "Libro matematico para el noveno nivel escolar.",
+    "portada": "MATEMATICA 9 PARA TODOS.png"
+  },
+  {
+    "titulo": "Relaciones Humanas y Manejo de Conflictos",
+    "categoria": "Personales",
+    "descripcion": "Como manejar conflictos humanos.",
+    "portada": "imagenes/matematica 9 para todos.jpg"
+  }
+]
+
+
+
+
+
+
+
+

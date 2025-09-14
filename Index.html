@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Biblioteca Escolar</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>📚 Biblioteca Escolar</h1>
+    <input id="buscar" placeholder="Busca título, categoría o descripción..." />
+  </header>
+
+  <main id="resultados"></main>
+
+  <!-- Modal -->
+ <div id="modal" class="modal">
+  <div class="modal-content">
+    <span id="cerrarModal">&times;</span>
+    <h2 id="modalTitulo"></h2>
+    <img id="modalPortada" alt="Portada" style="max-width:200px; margin:10px auto; display:block;">
+    <p id="modalCategoria"></p>
+    <p id="modalDescripcion"></p>
+  </div>
+</div>
+
+
+  <footer>
+    <p>© 2025 Biblioteca Escolar | Desarrollado con ❤️ para la comunidad educativa</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+
