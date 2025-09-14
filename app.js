@@ -15,7 +15,7 @@ function renderizar(librosFiltrados) {
     cont.innerHTML = '<p>No se encontraron libros.</p>';
     return;
   }
-  cont.innerHTML = librosFiltrados.map((b, i) => `
+  cont.innerHTML = librosFiltrados.map((b) => `
     <article class="card" data-id="${b.id}">
       <img src="${b.portada}" alt="Portada ${b.titulo}" onerror="this.style.display='none'">
       <div class="meta">
@@ -26,7 +26,7 @@ function renderizar(librosFiltrados) {
     </article>
   `).join('');
 
-  // ➕ Evento click para abrir modal
+  // Evento click para abrir modal
   document.querySelectorAll(".card").forEach(card => {
     card.addEventListener("click", () => {
       const id = parseInt(card.dataset.id);
@@ -63,33 +63,29 @@ document.getElementById('buscar').addEventListener('input', (e) => {
   renderizar(buscar(e.target.value));
 });
 
-// 🔥 Abre modal cargando detalles desde bookdes.json
+// Abre modal con datos desde bookdes.json
 function abrirModal(id) {
   const libroGeneral = libros.find(l => l.id === id);
 
-  // Buscar detalles en bookdes.json
   fetch('bookdes.json')
     .then(r => r.json())
     .then(detalles => {
       const detalle = detalles.find(d => d.id === id);
 
+      // Rellenar modal
       document.getElementById("modalTitulo").innerText = libroGeneral.titulo;
       document.getElementById("modalDescripcion").innerText = detalle.descripcion;
       document.getElementById("modalCategoria").innerText = detalle.categoria;
       document.getElementById("modalAutor").innerText = detalle.autor;
 
-      // ✅ Mostrar portada
       const img = document.getElementById("modalPortada");
       img.src = libroGeneral.portada;
       img.alt = `Portada de ${libroGeneral.titulo}`;
-      img.onerror = () => { 
-        img.style.display = "none"; 
-      };
+      img.onerror = () => { img.style.display = "none"; };
 
-      document.getElementById("modal").style.display = "flex";
+      document.getElementById("modal").style.display = "flex"; // ✅ abre modal
     })
     .catch(err => {
       console.error("Error cargando detalles", err);
     });
 }
-
