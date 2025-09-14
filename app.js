@@ -71,16 +71,66 @@ function abrirModal(libro) {
   document.getElementById("modalCategoria").innerText = libro.categoria;
   document.getElementById("modalAutor").innerText = libro.autor;
 
-  // ✅ Mostrar la portada como imagen
-  const img = document.getElementById("modalPortada");
-  img.src = libro.portada;
-  img.alt = `Portada de ${libro.titulo}`;
-  img.onerror = () => { 
-    img.style.display = "none"; 
-  };
+</div>
+</div>
 
-  document.getElementById("modal").style.display = "flex";
-}
+<style>
+  /* Fondo del modal */
+  .modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Fondo semitransparente */
+  }
+
+  /* Contenido del modal */
+  .modal-content {
+    background-color: #fff; /* Fondo blanco */
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+  }
+
+  /* Botón de cerrar */
+  #cerrarModal {
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #cerrarModal:hover {
+    color: red;
+  }
+</style>
+
+<script>
+  // Abrir modal (ejemplo de función)
+  function abrirModal() {
+    document.getElementById("modal").style.display = "block";
+  }
+
+  // Cerrar modal al hacer clic en la X
+  document.getElementById("cerrarModal").onclick = function() {
+    document.getElementById("modal").style.display = "none";
+  }
+
+  // Cerrar modal al hacer clic fuera del contenido
+  window.onclick = function(event) {
+    let modal = document.getElementById("modal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
 
 
 
