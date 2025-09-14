@@ -47,7 +47,7 @@ function buscar(q) {
 }
 
 // Carga inicial de datos desde bookdes.json 🚀
-fetch('bookdes.json')
+fetch('books.json')
   .then(r => r.json())
   .then(data => {
     libros = data.libros || data;
@@ -63,8 +63,7 @@ document.getElementById('buscar').addEventListener('input', (e) => {
   renderizar(buscar(e.target.value));
 });
 
-// Ejemplo de función para abrir modal
-// Ejemplo de función para abrir modal
+fetch('bookdes.json')
 function abrirModal(libro) {
   document.getElementById("modalTitulo").innerText = libro.titulo;
   document.getElementById("modalDescripcion").innerText = libro.descripcion;
@@ -80,5 +79,6 @@ function abrirModal(libro) {
 
   document.getElementById("modal").style.display = "flex";
 }
+
 
 
