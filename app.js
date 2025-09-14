@@ -63,15 +63,17 @@ document.getElementById('buscar').addEventListener('input', (e) => {
   renderizar(buscar(e.target.value));
 });
 
-// Ejemplo de función para abrir modal
-// Ejemplo de función para abrir modal
-function abrirModal(libro) {
-  document.getElementById("modalTitulo").innerText = libro.titulo;
-  document.getElementById("modalDescripciones").innerText = libro.descripciones;
-  document.getElementById("modalCategoria").innerText = libro.categoria;
-  document.getElementById("modalAutor").innerText = libro.autor;
 
-</div>
+<!-- Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span id="cerrarModal">&times;</span>
+    <h2 id="modalTitulo"></h2>
+    <img id="modalPortada" alt="Portada" style="max-width:200px; margin:10px auto; display:block;">
+    <p id="modalCategoria"></p>
+    <p id="modalDescripciones"></p>
+    <p id="modalAutor"></p>
+  </div>
 </div>
 
 <style>
@@ -131,8 +133,6 @@ function abrirModal(libro) {
     }
   }
 </script>
-
-
 
 
 
