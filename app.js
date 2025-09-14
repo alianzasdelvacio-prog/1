@@ -8,18 +8,20 @@ function normalizarTexto(texto = "") {
 
 let libros = [];
 
-// Renderiza las tarjetas en pantalla (solo con datos de books.json)
+// Renderiza las tarjetas en pantalla (usa books.json)
 function renderizar(librosFiltrados) {
   const cont = document.getElementById('resultados');
   if (!librosFiltrados.length) {
     cont.innerHTML = '<p>No se encontraron libros.</p>';
     return;
   }
-  cont.innerHTML = librosFiltrados.map((b) => `
+  cont.innerHTML = librosFiltrados.map((b, i) => `
     <article class="card" data-id="${b.id}">
       <img src="${b.portada}" alt="Portada ${b.titulo}" onerror="this.style.display='none'">
       <div class="meta">
         <h3>${b.titulo}</h3>
+        <p class="cat">${b.categoria}</p>
+        <p class="desc">${b.descripcion}</p>
       </div>
     </article>
   `).join('');
@@ -33,12 +35,14 @@ function renderizar(librosFiltrados) {
   });
 }
 
-// Busca por título
+// Busca por título, categoría o descripción (books.json)
 function buscar(q) {
   const qn = normalizarTexto(q);
   if (!qn) return libros;
   return libros.filter(b =>
-    normalizarTexto(b.titulo).includes(qn)
+    normalizarTexto(b.titulo).includes(qn) ||
+    normalizarTexto(b.categoria).includes(qn) ||
+    normalizarTexto(b.descripcion).includes(qn)
   );
 }
 
@@ -59,7 +63,7 @@ document.getElementById('buscar').addEventListener('input', (e) => {
   renderizar(buscar(e.target.value));
 });
 
-// 🔥 Abre el modal cargando detalles desde bookdes.json
+// 🔥 Abre modal cargando detalles desde bookdes.json
 function abrirModal(id) {
   const libroGeneral = libros.find(l => l.id === id);
 
@@ -88,6 +92,4 @@ function abrirModal(id) {
       console.error("Error cargando detalles", err);
     });
 }
-
-
 
