@@ -22,8 +22,6 @@ function renderizar(librosFiltrados) {
         <h3>${b.titulo}</h3>
         <p class="cat">${b.categoria}</p>
         <p class="desc">${b.descripcion}</p>
-        <p class="desc">${b.descripciones}</p>
-        <p class="desc">${b.autor}</p>
       </div>
     </article>
   `).join('');
@@ -84,6 +82,7 @@ function abrirModal(libro) {
 
   document.getElementById("modal").style.display = "flex";
 }
+
 
 
 
