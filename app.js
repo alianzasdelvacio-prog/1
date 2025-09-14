@@ -66,7 +66,7 @@ unction abrirModal(libro) {
   document.getElementById("modalTitulo").innerText = libro.titulo;
   document.getElementById("modalDescripciones").innerText = libro.descripciones;
   document.getElementById("modalCategoria").innerText = libro.categoria;
-
+  document.getElementById("modalAutor").innerText = libro.autor;
   // ✅ Mostrar la portada como imagen
   const img = document.getElementById("modalPortada");
   img.src = libro.portada;
@@ -77,6 +77,7 @@ unction abrirModal(libro) {
 
   document.getElementById("modal").style.display = "flex";
 }
+
 
 
 
