@@ -64,7 +64,7 @@ document.getElementById('buscar').addEventListener('input', (e) => {
 });
 unction abrirModal(libro) {
   document.getElementById("modalTitulo").innerText = libro.titulo;
-  document.getElementById("modalDescripcion").innerText = libro.descripcion;
+  document.getElementById("modalDescripciones").innerText = libro.descripciones;
   document.getElementById("modalCategoria").innerText = libro.categoria;
 
   // ✅ Mostrar la portada como imagen
@@ -77,18 +77,6 @@ unction abrirModal(libro) {
 
   document.getElementById("modal").style.display = "flex";
 }
-<!-- Modal -->
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span id="cerrarModal">&times;</span>
-    <h2 id="modalTitulo"></h2>
-    <img id="modalPortada" alt="Portada" style="max-width:200px; margin:10px auto; display:block;">
-    <p id="modalAutor"></p> <!-- ✅ Nuevo campo autor -->
-    <p id="modalCategoria"></p>
-    <p id="modalDescripciones"></p> <!-- ✅ cambiado de descripcion a descripciones -->
-  </div>
-</div>
-
 
 
 
