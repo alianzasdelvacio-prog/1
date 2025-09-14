@@ -67,11 +67,7 @@ document.getElementById('buscar').addEventListener('input', (e) => {
 function abrirModal(libro) {
 
   fetch('bookdes.json')
-    .then(r => r.json())
-    .then(detalles => {
-      const detalle = detalles.find(d => d.id === id);
 
-      // Rellenar modal
    document.getElementById("modalTitulo").innerText = libro.titulo;
   document.getElementById("modalDescripcion").innerText = libro.descripcion;
   document.getElementById("modalCategoria").innerText = libro.categoria;
@@ -86,5 +82,6 @@ function abrirModal(libro) {
 
   document.getElementById("modal").style.display = "flex";
 }
+
 
 
