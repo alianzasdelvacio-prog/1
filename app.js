@@ -64,8 +64,7 @@ document.getElementById('buscar').addEventListener('input', (e) => {
 });
 
 // Abre modal con datos desde bookdes.json
-function abrirModal(id) {
-  const libroGeneral = libros.find(l => l.id === id);
+function abrirModal(libro) {
 
   fetch('bookdes.json')
     .then(r => r.json())
@@ -73,19 +72,19 @@ function abrirModal(id) {
       const detalle = detalles.find(d => d.id === id);
 
       // Rellenar modal
-      document.getElementById("modalTitulo").innerText = libroGeneral.titulo;
-      document.getElementById("modalDescripcion").innerText = detalle.descripcion;
-      document.getElementById("modalCategoria").innerText = detalle.categoria;
-      document.getElementById("modalAutor").innerText = detalle.autor;
+   document.getElementById("modalTitulo").innerText = libro.titulo;
+  document.getElementById("modalDescripcion").innerText = libro.descripcion;
+  document.getElementById("modalCategoria").innerText = libro.categoria;
 
-      const img = document.getElementById("modalPortada");
-      img.src = libroGeneral.portada;
-      img.alt = `Portada de ${libroGeneral.titulo}`;
-      img.onerror = () => { img.style.display = "none"; };
+  // ✅ Mostrar la portada como imagen
+  const img = document.getElementById("modalPortada");
+  img.src = libro.portada;
+  img.alt = `Portada de ${libro.titulo}`;
+  img.onerror = () => { 
+    img.style.display = "none"; 
+  };
 
-      document.getElementById("modal").style.display = "flex"; // ✅ abre modal
-    })
-    .catch(err => {
-      console.error("Error cargando detalles", err);
-    });
+  document.getElementById("modal").style.display = "flex";
 }
+
+
