@@ -8,20 +8,18 @@ function normalizarTexto(texto = "") {
 
 let libros = [];
 
-// Renderiza las tarjetas en pantalla
+// Renderiza las tarjetas en pantalla (solo con datos de books.json)
 function renderizar(librosFiltrados) {
   const cont = document.getElementById('resultados');
   if (!librosFiltrados.length) {
     cont.innerHTML = '<p>No se encontraron libros.</p>';
     return;
   }
-  cont.innerHTML = librosFiltrados.map((b, i) => `
-    <article class="card" data-id="${i}">
+  cont.innerHTML = librosFiltrados.map((b) => `
+    <article class="card" data-id="${b.id}">
       <img src="${b.portada}" alt="Portada ${b.titulo}" onerror="this.style.display='none'">
       <div class="meta">
         <h3>${b.titulo}</h3>
-        <p class="cat">${b.categoria}</p>
-        <p class="desc">${b.descripcion}</p>
       </div>
     </article>
   `).join('');
@@ -29,24 +27,22 @@ function renderizar(librosFiltrados) {
   // ➕ Evento click para abrir modal
   document.querySelectorAll(".card").forEach(card => {
     card.addEventListener("click", () => {
-      const id = card.dataset.id;
-      abrirModal(libros[id]); // 🔥 ahora abre modal en lugar de detalle.html
+      const id = parseInt(card.dataset.id);
+      abrirModal(id);
     });
   });
 }
 
-// Busca por título, categoría o descripción
+// Busca por título
 function buscar(q) {
   const qn = normalizarTexto(q);
   if (!qn) return libros;
   return libros.filter(b =>
-    normalizarTexto(b.titulo).includes(qn) ||
-    normalizarTexto(b.categoria).includes(qn) ||
-    normalizarTexto(b.descripcion).includes(qn)
+    normalizarTexto(b.titulo).includes(qn)
   );
 }
 
-// Carga inicial de datos desde bookdes.json 🚀
+// Carga inicial de datos desde books.json 🚀
 fetch('books.json')
   .then(r => r.json())
   .then(data => {
@@ -63,27 +59,35 @@ document.getElementById('buscar').addEventListener('input', (e) => {
   renderizar(buscar(e.target.value));
 });
 
-fetch('bookdes.json')
-  .then(r => r.json())
-  .then(data => {
-    libros = data.libros || data;
-    renderizar(libros);
-function abrirModal(libro) {
-  document.getElementById("modalTitulo").innerText = libro.titulo;
-  document.getElementById("modalDescripcion").innerText = libro.descripcion;
-  document.getElementById("modalCategoria").innerText = libro.categoria;
+// 🔥 Abre el modal cargando detalles desde bookdes.json
+function abrirModal(id) {
+  const libroGeneral = libros.find(l => l.id === id);
 
-  // ✅ Mostrar la portada como imagen
-  const img = document.getElementById("modalPortada");
-  img.src = libro.portada;
-  img.alt = `Portada de ${libro.titulo}`;
-  img.onerror = () => { 
-    img.style.display = "none"; 
-  };
+  // Buscar detalles en bookdes.json
+  fetch('bookdes.json')
+    .then(r => r.json())
+    .then(detalles => {
+      const detalle = detalles.find(d => d.id === id);
 
-  document.getElementById("modal").style.display = "flex";
+      document.getElementById("modalTitulo").innerText = libroGeneral.titulo;
+      document.getElementById("modalDescripcion").innerText = detalle.descripcion;
+      document.getElementById("modalCategoria").innerText = detalle.categoria;
+      document.getElementById("modalAutor").innerText = detalle.autor;
+
+      // ✅ Mostrar portada
+      const img = document.getElementById("modalPortada");
+      img.src = libroGeneral.portada;
+      img.alt = `Portada de ${libroGeneral.titulo}`;
+      img.onerror = () => { 
+        img.style.display = "none"; 
+      };
+
+      document.getElementById("modal").style.display = "flex";
+    })
+    .catch(err => {
+      console.error("Error cargando detalles", err);
+    });
 }
-
 
 
 
